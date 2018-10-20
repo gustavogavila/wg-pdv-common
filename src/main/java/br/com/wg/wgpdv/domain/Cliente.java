@@ -1,12 +1,15 @@
 package br.com.wg.wgpdv.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -24,6 +27,9 @@ public class Cliente implements Serializable {
 	
 	@Column(name = "nome", nullable = false)
 	private String nome;
+	
+	@OneToMany(mappedBy="cliente")
+	private List<Venda> vendas = new ArrayList<>();
 	
 	public Cliente() {
 	}
@@ -48,6 +54,14 @@ public class Cliente implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public List<Venda> getVendas() {
+		return vendas;
+	}
+
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package br.com.wg.wgpdv;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.wg.wgpdv.domain.Cliente;
 import br.com.wg.wgpdv.domain.Produto;
+import br.com.wg.wgpdv.domain.Venda;
 import br.com.wg.wgpdv.repositories.ClienteRepository;
 import br.com.wg.wgpdv.repositories.ProdutoRepository;
+import br.com.wg.wgpdv.repositories.VendaRepository;
 
 @SpringBootApplication
 public class WgPdvApplication implements CommandLineRunner {
@@ -21,6 +25,9 @@ public class WgPdvApplication implements CommandLineRunner {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private VendaRepository vendaRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(WgPdvApplication.class, args);
@@ -40,6 +47,13 @@ public class WgPdvApplication implements CommandLineRunner {
 		Produto p4 = new Produto(null, "Caixas de som", new BigDecimal(35.00));
 		
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4));
+		
+		Venda v1 = new Venda(null, LocalDateTime.of(2018, Month.OCTOBER, 1, 8, 30), c1);
+		Venda v2 = new Venda(null, LocalDateTime.of(2018, Month.OCTOBER, 1, 9, 5), c2);
+		
+		vendaRepository.saveAll(Arrays.asList(v1, v2));
+		
+		
 		
 	}
 }
