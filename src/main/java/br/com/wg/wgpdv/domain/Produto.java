@@ -1,6 +1,7 @@
 package br.com.wg.wgpdv.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,27 +12,32 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cliente")
-public class Cliente implements Serializable {
-	
+@Table(name="produto")
+public class Produto implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "cliente_seq")
-	@SequenceGenerator(name="cliente_seq", sequenceName = "cliente_seq", allocationSize=1)
-	@Column(name = "codigo", nullable = false)
+	@SequenceGenerator(name="produto_seq", sequenceName="produto_seq", allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="produto_seq")
+	@Column(name="codigo", nullable=false)
 	private Long codigo;
 	
-	@Column(name = "nome", nullable = false)
-	private String nome;
+	@Column(name="descricao", nullable=false)
+	private String descricao;
 	
-	public Cliente() {
+	@Column(name="preco", nullable=false)
+	private BigDecimal preco;
+	
+	public Produto() {
+		
 	}
 
-	public Cliente(Long codigo, String nome) {
+	public Produto(Long codigo, String descricao, BigDecimal preco) {
 		super();
 		this.codigo = codigo;
-		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
 	}
 
 	public Long getCodigo() {
@@ -42,12 +48,20 @@ public class Cliente implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
 	}
 
 	@Override
@@ -66,7 +80,7 @@ public class Cliente implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Produto other = (Produto) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
@@ -74,5 +88,7 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
+	
+	
 	
 }

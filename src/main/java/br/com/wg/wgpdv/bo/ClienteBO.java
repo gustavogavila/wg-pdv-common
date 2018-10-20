@@ -15,8 +15,8 @@ public class ClienteBO {
 	private ClienteRepository repo;
 	
 	public Cliente findById(Long codigo) {
-		Optional<Cliente> optional = repo.findById(codigo);
-		return optional.orElse(null);
+		Optional<Cliente> obj = repo.findById(codigo);
+		return obj.orElse(null);
 	}
 	
 }
