@@ -11,9 +11,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.wg.wgpdv.domain.Cliente;
+import br.com.wg.wgpdv.domain.Item;
 import br.com.wg.wgpdv.domain.Produto;
 import br.com.wg.wgpdv.domain.Venda;
 import br.com.wg.wgpdv.repositories.ClienteRepository;
+import br.com.wg.wgpdv.repositories.ItemRepository;
 import br.com.wg.wgpdv.repositories.ProdutoRepository;
 import br.com.wg.wgpdv.repositories.VendaRepository;
 
@@ -28,6 +30,9 @@ public class WgPdvApplication implements CommandLineRunner {
 	
 	@Autowired
 	private VendaRepository vendaRepository;
+	
+	@Autowired
+	private ItemRepository itemRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(WgPdvApplication.class, args);
@@ -53,6 +58,16 @@ public class WgPdvApplication implements CommandLineRunner {
 		
 		vendaRepository.saveAll(Arrays.asList(v1, v2));
 		
+		Item i1v1 = new Item(null, 2, p1, v1);
+		Item i2v1 = new Item(null, 2, p2, v1);
+		Item i3v1 = new Item(null, 2, p3, v1);
+		
+		Item i1v2 = new Item (null, 1, p4, v2);
+		
+		v1.getItens().addAll(Arrays.asList(i1v1, i2v1, i3v1));
+		v2.getItens().add(i1v2);
+
+		itemRepository.saveAll(Arrays.asList(i1v1, i2v1, i3v1, i1v2));
 		
 		
 	}

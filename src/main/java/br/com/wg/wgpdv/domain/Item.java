@@ -1,9 +1,6 @@
 package br.com.wg.wgpdv.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,43 +9,44 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="venda")
-public class Venda implements Serializable {
-	
+@Table(name="item")
+public class Item implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name="venda_seq", sequenceName="venda_seq", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="venda_seq")
+	@SequenceGenerator(name="item_seq", sequenceName="item_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="item_seq")
 	private Long codigo;
 	
-	@Column(name="data", nullable=false)
-	private LocalDateTime data;
+	@Column(name="quantidade", nullable=false)
+	private Integer quantidade;
+	
+	@ManyToOne
+	@JoinColumn(name="produto_id", referencedColumnName="codigo")
+	private Produto produto;
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="cliente_codigo", referencedColumnName="codigo")
-	private Cliente cliente;
+	@JoinColumn(name="venda_id", referencedColumnName="codigo")
+	private Venda venda;
 	
-	@OneToMany(mappedBy="venda")
-	private List<Item> itens = new ArrayList<>();
-	
-	public Venda() {
+	public Item() {
 		
 	}
 
-	public Venda(Long codigo, LocalDateTime data, Cliente cliente) {
+	public Item(Long codigo, Integer quantidade, Produto produto, Venda venda) {
 		super();
 		this.codigo = codigo;
-		this.data = data;
-		this.cliente = cliente;
+		this.quantidade = quantidade;
+		this.produto = produto;
+		this.venda = venda;
 	}
 
 	public Long getCodigo() {
@@ -59,28 +57,28 @@ public class Venda implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public LocalDateTime getData() {
-		return data;
+	public Integer getQuantidade() {
+		return quantidade;
 	}
 
-	public void setData(LocalDateTime data) {
-		this.data = data;
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
-	public List<Item> getItens() {
-		return itens;
+	public Venda getVenda() {
+		return venda;
 	}
 
-	public void setItens(List<Item> itens) {
-		this.itens = itens;
+	public void setVenda(Venda venda) {
+		this.venda = venda;
 	}
 
 	@Override
@@ -99,7 +97,7 @@ public class Venda implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Venda other = (Venda) obj;
+		Item other = (Item) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
