@@ -16,8 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name="venda")
 public class Venda implements Serializable {
@@ -32,7 +30,6 @@ public class Venda implements Serializable {
 	@Column(name="data", nullable=false)
 	private LocalDateTime data;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="cliente_codigo", referencedColumnName="codigo")
 	private Cliente cliente;

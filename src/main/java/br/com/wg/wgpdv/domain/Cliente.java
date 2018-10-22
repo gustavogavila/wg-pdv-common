@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="cliente")
 public class Cliente implements Serializable {
@@ -28,6 +30,7 @@ public class Cliente implements Serializable {
 	@Column(name = "nome", nullable = false)
 	private String nome;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="cliente")
 	private List<Venda> vendas = new ArrayList<>();
 	

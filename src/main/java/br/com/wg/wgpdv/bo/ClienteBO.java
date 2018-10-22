@@ -17,8 +17,9 @@ public class ClienteBO {
 	
 	public Cliente findById(Long codigo) {
 		Optional<Cliente> obj = repo.findById(codigo);
-		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException(
-				"Objeto não encontrado! Codigo: " + codigo + ", Tipo: " + Cliente.class.getName()));
+		return obj.orElseThrow(() -> 
+			new ObjetoNaoEncontradoException(
+				"Objeto não encontrado! Codigo: " + codigo + 
+					", Tipo: " + Cliente.class.getName()));
 	}
-	
 }

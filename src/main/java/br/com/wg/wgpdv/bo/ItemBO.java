@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.wg.wgpdv.bo.exceptions.ObjetoNaoEncontradoException;
 import br.com.wg.wgpdv.domain.Item;
 import br.com.wg.wgpdv.repositories.ItemRepository;
 
@@ -16,6 +17,9 @@ public class ItemBO {
 	
 	public Item findById(Long codigo) {
 		Optional<Item> obj = repo.findById(codigo);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> 
+			new ObjetoNaoEncontradoException(
+				"Objeto não encontrado! Código: " + codigo + 
+					", Tipo: " + Item.class.getName()));
 	}
 }
