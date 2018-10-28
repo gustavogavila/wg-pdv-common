@@ -12,49 +12,41 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name="item")
+@Table(name = "item")
 public class Item implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@SequenceGenerator(name="item_seq", sequenceName="item_seq", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="item_seq")
-	private Long codigo;
-	
-	@Column(name="quantidade", nullable=false)
+	@SequenceGenerator(name = "item_seq", sequenceName = "item_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_seq")
+	private Long id;
+
+	@Column(name = "quantidade", nullable = false)
 	private Integer quantidade;
-	
+
 	@ManyToOne
-	@JoinColumn(name="produto_id", referencedColumnName="codigo")
+	@JoinColumn(name = "produto_id", referencedColumnName = "id")
 	private Produto produto;
-	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="venda_id", referencedColumnName="codigo")
-	private Venda venda;
-	
+
 	public Item() {
-		
+
 	}
 
-	public Item(Long codigo, Integer quantidade, Produto produto, Venda venda) {
+	public Item(Long id, Integer quantidade, Produto produto) {
 		super();
-		this.codigo = codigo;
+		this.id = id;
 		this.quantidade = quantidade;
 		this.produto = produto;
-		this.venda = venda;
 	}
 
-	public Long getCodigo() {
-		return codigo;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Integer getQuantidade() {
@@ -73,19 +65,11 @@ public class Item implements Serializable {
 		this.produto = produto;
 	}
 
-	public Venda getVenda() {
-		return venda;
-	}
-
-	public void setVenda(Venda venda) {
-		this.venda = venda;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -98,12 +82,12 @@ public class Item implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-	
+
 }

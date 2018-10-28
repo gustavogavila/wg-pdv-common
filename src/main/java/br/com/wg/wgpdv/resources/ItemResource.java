@@ -17,9 +17,9 @@ public class ItemResource {
 	@Autowired
 	private ItemBO bo;
 	
-	@RequestMapping(value="/{codigo}", method=RequestMethod.GET)
-	public ResponseEntity<?> findById(@PathVariable Long codigo) {
-		Item obj = bo.findById(codigo);
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> findById(@PathVariable Long id) {
+		Item obj = bo.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 }

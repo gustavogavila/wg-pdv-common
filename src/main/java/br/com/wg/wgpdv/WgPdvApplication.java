@@ -58,11 +58,11 @@ public class WgPdvApplication implements CommandLineRunner {
 		
 		vendaRepository.saveAll(Arrays.asList(v1, v2));
 		
-		Item i1v1 = new Item(null, 2, p1, v1);
-		Item i2v1 = new Item(null, 2, p2, v1);
-		Item i3v1 = new Item(null, 2, p3, v1);
+		Item i1v1 = new Item(null, 2, p1);
+		Item i2v1 = new Item(null, 2, p2);
+		Item i3v1 = new Item(null, 2, p3);
 		
-		Item i1v2 = new Item (null, 1, p4, v2);
+		Item i1v2 = new Item (null, 1, p4);
 		
 		v1.getItens().addAll(Arrays.asList(i1v1, i2v1, i3v1));
 		v2.getItens().add(i1v2);

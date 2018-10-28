@@ -12,40 +12,40 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="produto")
+@Table(name = "produto")
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@SequenceGenerator(name="produto_seq", sequenceName="produto_seq", allocationSize = 1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="produto_seq")
-	@Column(name="codigo", nullable=false)
-	private Long codigo;
-	
-	@Column(name="descricao", nullable=false)
+	@SequenceGenerator(name = "produto_seq", sequenceName = "produto_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_seq")
+	@Column(name = "id", nullable = false)
+	private Long id;
+
+	@Column(name = "descricao", nullable = false)
 	private String descricao;
-	
-	@Column(name="preco", nullable=false)
+
+	@Column(name = "preco", nullable = false)
 	private BigDecimal preco;
-	
+
 	public Produto() {
-		
+
 	}
 
-	public Produto(Long codigo, String descricao, BigDecimal preco) {
+	public Produto(Long id, String descricao, BigDecimal preco) {
 		super();
-		this.codigo = codigo;
+		this.id = id;
 		this.descricao = descricao;
 		this.preco = preco;
 	}
 
-	public Long getCodigo() {
-		return codigo;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getDescricao() {
@@ -68,7 +68,7 @@ public class Produto implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -81,14 +81,12 @@ public class Produto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }

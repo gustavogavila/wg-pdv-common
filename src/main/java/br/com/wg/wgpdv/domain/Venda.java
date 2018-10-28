@@ -16,44 +16,47 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
-@Table(name="venda")
+@Table(name = "venda")
 public class Venda implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@SequenceGenerator(name="venda_seq", sequenceName="venda_seq", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="venda_seq")
-	private Long codigo;
-	
-	@Column(name="data", nullable=false)
+	@SequenceGenerator(name = "venda_seq", sequenceName = "venda_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venda_seq")
+	private Long id;
+
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Column(name = "data", nullable = false)
 	private LocalDateTime data;
-	
+
 	@ManyToOne
-	@JoinColumn(name="cliente_codigo", referencedColumnName="codigo")
+	@JoinColumn(name = "cliente_id", referencedColumnName = "id")
 	private Cliente cliente;
-	
-	@OneToMany(mappedBy="venda")
+
+	@OneToMany
 	private List<Item> itens = new ArrayList<>();
-	
+
 	public Venda() {
-		
+
 	}
 
-	public Venda(Long codigo, LocalDateTime data, Cliente cliente) {
+	public Venda(Long id, LocalDateTime data, Cliente cliente) {
 		super();
-		this.codigo = codigo;
+		this.id = id;
 		this.data = data;
 		this.cliente = cliente;
 	}
 
-	public Long getCodigo() {
-		return codigo;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public LocalDateTime getData() {
@@ -84,7 +87,7 @@ public class Venda implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -97,12 +100,12 @@ public class Venda implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Venda other = (Venda) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-	
+
 }

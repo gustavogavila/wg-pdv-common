@@ -11,15 +11,13 @@ import br.com.wg.wgpdv.repositories.ItemRepository;
 
 @Service
 public class ItemBO {
-	
+
 	@Autowired
 	private ItemRepository repo;
-	
-	public Item findById(Long codigo) {
-		Optional<Item> obj = repo.findById(codigo);
-		return obj.orElseThrow(() -> 
-			new ObjetoNaoEncontradoException(
-				"Objeto não encontrado! Código: " + codigo + 
-					", Tipo: " + Item.class.getName()));
+
+	public Item findById(Long id) {
+		Optional<Item> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException(
+				"Objeto não encontrado! Código: " + id + ", Tipo: " + Item.class.getName()));
 	}
 }
